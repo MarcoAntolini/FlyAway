@@ -1,0 +1,64 @@
+/* ------------------------------------------------------------ NORMALIZE: ------------------------------------------------------------ */
+
+html {
+    font-family: "Arial", sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+}
+
+/* ------------------------------------------------------------ BODY: ------------------------------------------------------------ */
+
+body {
+    font-size: 14px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../toRename/bg.png");
+    background-size: cover;
+}
+
+.download-button {
+    background-color: #ff9999;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: black !important;
+    padding: 2px 4px;
+}
+
+.download-button:hover {
+    background-color: #ff6666;
+}
+
+/* ------------------------------------------------------------ FOOTER: ------------------------------------------------------------ */
+
+footer {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 99%;
+    background-color: rgba(0, 0, 0, 0.2);
+    gap: 50px;
+}
+
+.bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+footer div {
+    display: flex;
+    align-items: center;
+}
