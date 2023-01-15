@@ -8,6 +8,12 @@ html {
     overflow-x: hidden;
 }
 
+body {
+    font-size: 14px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/bg.png");
+    background-size: cover;
+}
+
 a {
     text-decoration: none;
 }
@@ -17,13 +23,11 @@ a:is(:visited, :hover, :active, :focus) {
     color: blue;
 }
 
-/* ------------------------------------------------------------ BODY: ------------------------------------------------------------ */
+/* ------------------------------------------------------------ HEADER: ------------------------------------------------------------ */
 
-body {
-    font-size: 14px;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/bg.png");
-    background-size: cover;
-}
+
+
+/* ------------------------------------------------------------ MAIN: ------------------------------------------------------------ */
 
 .download-button {
     background-color: #ff9999;
@@ -42,16 +46,17 @@ body {
 
 footer {
     font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 50px;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    gap: 50px;
-    margin-left: -0.4%;
-    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    left: 0;
+    padding: 0 1%;
 }
 
 footer div {
