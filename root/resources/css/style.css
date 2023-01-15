@@ -12,7 +12,8 @@ a {
     text-decoration: none;
 }
 
-a:is(:visited, :hover, :active) {
+a,
+a:is(:visited, :hover, :active, :focus) {
     color: blue;
 }
 
