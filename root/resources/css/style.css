@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-a:visited {
+a:is(:visited, :hover, :active) {
     color: blue;
 }
 
@@ -20,7 +20,7 @@ a:visited {
 
 body {
     font-size: 14px;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../toRename/bg.png");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../images/bg.png");
     background-size: cover;
 }
 
@@ -29,11 +29,12 @@ body {
     border: 1px solid black;
     border-radius: 20px;
     color: black !important;
-    padding: 2px 4px;
+    padding: 2px 8.5px;
 }
 
 .download-button:hover {
     background-color: #ff6666;
+    border-width: 2px;
 }
 
 /* ------------------------------------------------------------ FOOTER: ------------------------------------------------------------ */
@@ -45,17 +46,11 @@ footer {
     justify-content: center;
     position: absolute;
     bottom: 0;
-    width: 99%;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     gap: 50px;
-}
-
-.bar {
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 1px;
-    width: 100%;
-    position: absolute;
-    top: 0;
+    margin-left: -0.4%;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 footer div {
