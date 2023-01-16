@@ -80,6 +80,16 @@ main {
     justify-content: center;
 }
 
+.sub-title {
+    font-size: 50px;
+    margin-bottom: -20px;
+}
+
+.sub-sub-title {
+    font-size: 30px;
+    margin: -20px 0 -30px;
+}
+
 .p {
     width: fit-content;
     font-size: large;
@@ -124,6 +134,7 @@ table {
     border: 1px solid black;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
+    margin-top: -10px;
 }
 
 th,
@@ -160,6 +171,12 @@ input[type="button"]:hover {
 .register,
 .login {
     margin-top: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 15px;
+    text-align: center;
 }
 
 /* ------------------------------------------------------------ FOOTER: ------------------------------------------------------------ */
