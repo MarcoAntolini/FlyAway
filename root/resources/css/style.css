@@ -25,21 +25,140 @@ a:is(:visited, :hover, :active, :focus) {
 
 /* ------------------------------------------------------------ HEADER: ------------------------------------------------------------ */
 
+header {
+    margin: -10px;
+}
 
+.nav {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 1%;
+}
+
+.nav a {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    color: black;
+    text-align: center;
+}
+
+.nav a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 
 /* ------------------------------------------------------------ MAIN: ------------------------------------------------------------ */
 
-.download-button {
+main {
+    margin: 0 1%;
+    padding: 0 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.title {
+    font: 100px "Aclonica", sans-serif;
+    font-weight: bold;
+    color: #ff9999;
+    text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black,
+        1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p {
+    width: fit-content;
+    font-size: large;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    margin: 0;
+    padding: 1%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.top {
+    margin-top: 5%;
+}
+
+.wide {
+    width: 60%;
+}
+
+.button {
     background-color: #ff9999;
     border: 1px solid black;
     border-radius: 20px;
     color: black !important;
     padding: 2px 8.5px;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 21px;
 }
 
-.download-button:hover {
+.button:hover {
     background-color: #ff6666;
-    border-width: 2px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    background-color: #ff9999;
+}
+
+tr:hover {
+    background-color: #ffc4c4;
+}
+
+.auth {
+    margin-top: 10%;
+}
+
+input {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: #ff9999;
+}
+
+#switch {
+    margin-top: 10px;
 }
 
 /* ------------------------------------------------------------ FOOTER: ------------------------------------------------------------ */
@@ -53,7 +172,7 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 50px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     padding: 0 1%;
