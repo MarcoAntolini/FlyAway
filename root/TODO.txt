@@ -1,2 +1,0 @@
-se loggato si vede logout anzi che login/register
-tutte le pagine visibili solo se loggati
