@@ -1,19 +1,6 @@
 window.onload = function () {
     auth_switch();
     logged_check();
-    // let title = document.getElementById("check");
-    // if (title) {
-    //     title.addEventListener("click", function () {
-    //         let user_button = document.getElementById("user");
-    //         if (user_button.classList.contains("logged")) {
-    //             user_button.classList.remove("logged");
-    //             user_button.innerText = "Logout";
-    //         } else {
-    //             user_button.classList.add("logged");
-    //             user_button.innerText = "Login/Register";
-    //         }
-    //     });
-    // };
 };
 
 function auth_switch() {
