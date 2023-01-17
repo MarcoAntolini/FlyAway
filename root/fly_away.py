@@ -65,11 +65,30 @@ def logout():
     return render_template("index.html", logged="notLogged")
 
 
-# create a protected page
 @app.route("/services")
 @login_required
 def services():
     return render_template("services.html")
+
+
+@app.route("/")
+def about():
+    return render_template("index.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/privacy-policy")
+def about():
+    return render_template("privacy-policy.html")
+
+
+@app.route("/terms-and-conditions")
+def about():
+    return render_template("terms-and-conditions.html")
 
 
 # create a callback function for flask_login
