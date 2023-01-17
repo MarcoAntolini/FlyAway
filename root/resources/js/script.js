@@ -42,9 +42,10 @@ function logged_check() {
         if (event.attrName !== "class") return;
         if (user_button.classList.contains("logged")) {
             user_button.innerText = "Logout";
+            user_button.setAttribute("href", "/logout");
         } else {
             user_button.innerText = "Login/Register";
-            console.log("Logged out");
+            user_button.setAttribute("href", "/welcome");
         }
     });
 }
