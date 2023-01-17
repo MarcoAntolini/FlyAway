@@ -152,8 +152,12 @@ tr:hover {
     background-color: #ffc4c4;
 }
 
-.auth {
+.top-log {
     margin-top: 10%;
+}
+
+.auth {
+    margin-top: 1%;
 }
 
 input {
