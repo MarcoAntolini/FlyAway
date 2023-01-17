@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from jinja2 import TemplateNotFound
 from bs4 import BeautifulSoup
 from datetime import timedelta
 import requests
@@ -9,7 +10,6 @@ app.secret_key = "secret key"  # used for securing session data
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 login_manager.session_protection = "strong"
 login_manager.login_view = "welcome"
 
@@ -24,10 +24,25 @@ class User(UserMixin):
 # create a list to store our user data
 users = []
 
-html = requests.get(
-    "https://www.flyaway.com.au/"
-).text  # TODO: change to the actual website
-soup = BeautifulSoup(html, "html.parser")
+# import os
+# os.environ["no_proxy"] = "127.0.0.1,localhost"
+
+# url = "http://127.0.0.1:5000/"
+# page = open(url)
+# soup = BeautifulSoup(page.read())
+html = requests.get("http://127.0.0.1:5000/")
+soup = BeautifulSoup(html.text, "html.parser")
+
+logged = "notLogged"
+
+
+def switch_logged():
+    global logged
+    if logged == "notLogged":
+        logged = "logged"
+    else:
+        logged = "notLogged"
+    return logged
 
 
 @app.route("/welcome", methods=["GET", "POST"])
@@ -44,7 +59,7 @@ def welcome():
         new_user = User(len(users), username, password)
         users.append(new_user)
         login_user(new_user, remember=True, duration=timedelta(days=30))
-        return render_template("index.html", logged="logged")
+        return render_template("index.html", switch_logged())
     elif check_button.has_class("login"):  # if the button is login
         if request.method != "POST":
             return render_template("welcome.html")
@@ -53,7 +68,7 @@ def welcome():
         for user in users:
             if user.username == username and user.password == password:
                 login_user(user, remember=True, duration=timedelta(days=7))
-                return render_template("index.html", logged="logged")
+                return render_template("index.html", switch_logged())
         return render_template("welcome.html", error="Invalid username or password")
 
 
@@ -62,7 +77,7 @@ def welcome():
 @login_required
 def logout():
     logout_user()
-    return render_template("index.html", logged="notLogged")
+    return render_template("index.html", switch_logged())
 
 
 @app.route("/services", methods=["GET"])
@@ -71,24 +86,22 @@ def services():
     return render_template("services.html")
 
 
-@app.route("/", methods=["GET"])
-def about():
-    return render_template("index.html")
+@app.route("/")
+def index():
+    global logged
+    return render_template("index.html", logged)
 
 
-@app.route("/about", methods=["GET"])
-def about():
-    return render_template("about.html")
-
-
-@app.route("/privacy-policy", methods=["GET"])
-def about():
-    return render_template("privacy-policy.html")
-
-
-@app.route("/terms-and-conditions", methods=["GET"])
-def about():
-    return render_template("terms-and-conditions.html")
+@app.route("/<path>")
+def pages():
+    try:
+        if not path.endswith(".html"):
+            path += ".html"
+        return render_template(path)
+    except TemplateNotFound:
+        return render_template("404.html"), 404
+    except:
+        return render_template("500.html"), 500
 
 
 # create a callback function for flask_login
