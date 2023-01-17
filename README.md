@@ -2,8 +2,8 @@
 
 ```bash
 $ # Clone the sources
-$ git clone <https://github.com/app-generator/flask-illustrations-iradesign.git>
-$ cd flask-illustrations-iradesign
+$ git clone <https://github.com/MarcoAntolini/Fly-Away>
+$ cd Fly-Away
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
