@@ -58,35 +58,35 @@ def welcome():
 
 
 # create a logout page
-@app.route("/logout")
+@app.route("/logout", methods=["GET"])
 @login_required
 def logout():
     logout_user()
     return render_template("index.html", logged="notLogged")
 
 
-@app.route("/services")
+@app.route("/services", methods=["GET"])
 @login_required
 def services():
     return render_template("services.html")
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def about():
     return render_template("index.html")
 
 
-@app.route("/about")
+@app.route("/about", methods=["GET"])
 def about():
     return render_template("about.html")
 
 
-@app.route("/privacy-policy")
+@app.route("/privacy-policy", methods=["GET"])
 def about():
     return render_template("privacy-policy.html")
 
 
-@app.route("/terms-and-conditions")
+@app.route("/terms-and-conditions", methods=["GET"])
 def about():
     return render_template("terms-and-conditions.html")
 
