@@ -30,23 +30,24 @@ users = []
 # url = "http://127.0.0.1:5000/"
 # page = open(url)
 # soup = BeautifulSoup(page.read())
-html = requests.get("http://127.0.0.1:5000/")
-soup = BeautifulSoup(html.text, "html.parser")
 
-logged = "notLogged"
+
+isLogged = "notLogged"
 
 
 def switch_logged():
-    global logged
-    if logged == "notLogged":
-        logged = "logged"
+    global isLogged
+    if isLogged == "notLogged":
+        isLogged = "logged"
     else:
-        logged = "notLogged"
-    return logged
+        isLogged = "notLogged"
+    return isLogged
 
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
+    html = requests.get("http://localhost:5000/")
+    soup = BeautifulSoup(html.text, "lxml")
     check_button = soup.find("input", id="switch")
     if check_button.has_class("register"):  # if the button is register
         if request.method != "POST":
@@ -59,7 +60,7 @@ def welcome():
         new_user = User(len(users), username, password)
         users.append(new_user)
         login_user(new_user, remember=True, duration=timedelta(days=30))
-        return render_template("index.html", switch_logged())
+        return render_template("index.html", logged=switch_logged())
     elif check_button.has_class("login"):  # if the button is login
         if request.method != "POST":
             return render_template("welcome.html")
@@ -68,7 +69,7 @@ def welcome():
         for user in users:
             if user.username == username and user.password == password:
                 login_user(user, remember=True, duration=timedelta(days=7))
-                return render_template("index.html", switch_logged())
+                return render_template("index.html", logged=switch_logged())
         return render_template("welcome.html", error="Invalid username or password")
 
 
@@ -77,7 +78,7 @@ def welcome():
 @login_required
 def logout():
     logout_user()
-    return render_template("index.html", switch_logged())
+    return render_template("index.html", logged=switch_logged())
 
 
 @app.route("/services", methods=["GET"])
@@ -88,8 +89,8 @@ def services():
 
 @app.route("/")
 def index():
-    global logged
-    return render_template("index.html", logged)
+    global isLogged
+    return render_template("index.html", logged=isLogged)
 
 
 @app.route("/<path>")
@@ -102,6 +103,11 @@ def pages():
         return render_template("404.html"), 404
     except:
         return render_template("500.html"), 500
+
+
+@app.route("/static/report/Report.pdf", methods=["GET"])
+def download():
+    return send_file("static/report/Report.pdf", as_attachment=True)
 
 
 # create a callback function for flask_login
