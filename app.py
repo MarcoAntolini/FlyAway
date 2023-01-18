@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from jinja2 import TemplateNotFound
 from bs4 import BeautifulSoup
 from datetime import timedelta
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__)  # used for debugging purposes
+
 app.secret_key = "secret key"  # used for securing session data
 
 login_manager = LoginManager()
@@ -32,82 +33,107 @@ users = []
 # soup = BeautifulSoup(page.read())
 
 
-isLogged = "notLogged"
+NAV = [
+    ("Home", "/"),
+    ("About Us", "/about"),
+    ("Services", "/services"),
+    ("Privacy & Cookies", "/privacy-policy"),
+    ("Terms & Conditions", "/terms-and-conditions"), 
+]
+                
 
+logged_y = "logged"
+logged_n = "notLogged"
+is_logged = ""
 
-def switch_logged():
-    global isLogged
-    if isLogged == "notLogged":
-        isLogged = "logged"
-    else:
-        isLogged = "notLogged"
-    return isLogged
+error_login = "Invalid username or password"
+error_register = "Username already exists"
+error_msg = ""
 
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    html = requests.get("http://localhost:5000/")
-    soup = BeautifulSoup(html.text, "lxml")
-    check_button = soup.find("input", id="switch")
-    if check_button.has_class("register"):  # if the button is register
-        if request.method != "POST":
-            return render_template("welcome.html")
-        username = request.form["username"]
-        password = request.form["password"]
-        for user in users:
-            if user.username == username:
-                return render_template("welcome.html", error="Username already exists")
-        new_user = User(len(users), username, password)
-        users.append(new_user)
-        login_user(new_user, remember=True, duration=timedelta(days=30))
-        return render_template("index.html", logged=switch_logged())
-    elif check_button.has_class("login"):  # if the button is login
-        if request.method != "POST":
-            return render_template("welcome.html")
-        username = request.form["username"]
-        password = request.form["password"]
-        for user in users:
-            if user.username == username and user.password == password:
-                login_user(user, remember=True, duration=timedelta(days=7))
-                return render_template("index.html", logged=switch_logged())
-        return render_template("welcome.html", error="Invalid username or password")
+    return render_template("welcome.html", nav=NAV)
+    # html = requests.get("http://127.0.0.1:5000/")
+    # soup = BeautifulSoup(html.text, "html.parser")
+    # check_button = soup.find("input", id="switch")
+    # if check_button.has_class("register"):  # if the button is register
+    #     if request.method != "POST":
+    #         return render_template("welcome.html", nav=NAV)
+    #     username = request.form["username"]
+    #     password = request.form["password"]
+    #     for user in users:
+    #         if user.username == username:
+    #             error_msg = error_register
+    #             return render_template("welcome.html", nav=NAV, error=error_msg)
+    #     new_user = User(len(users), username, password)
+    #     users.append(new_user)
+    #     login_user(new_user, remember=True, duration=timedelta(days=30))
+    #     is_logged = logged_y
+    #     return render_template("index.html", nav=NAV, logged=is_logged)
+    # elif check_button.has_class("login"):  # if the button is login
+    #     if request.method != "POST":
+    #         return render_template("welcome.html", nav=NAV)
+    #     username = request.form["username"]
+    #     password = request.form["password"]
+    #     for user in users:
+    #         if user.username == username and user.password == password:
+    #             login_user(user, remember=True, duration=timedelta(days=7))
+    #             is_logged = logged_y
+    #             return render_template("index.html", nav=NAV, logged=is_logged)
+    #     error_msg = error_login
+    #     return render_template("welcome.html", nav=NAV, error=error_msg)
 
 
-# create a logout page
 @app.route("/logout", methods=["GET"])
 @login_required
 def logout():
     logout_user()
-    return render_template("index.html", logged=switch_logged())
+    is_logged = logged_n
+    return render_template("index.html", nav=NAV, logged=is_logged)
 
 
 @app.route("/services", methods=["GET"])
 @login_required
 def services():
-    return render_template("services.html")
+    return render_template("services.html", nav=NAV, logged=is_logged)
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
+@app.route("/index", methods=["GET"])
 def index():
-    global isLogged
-    return render_template("index.html", logged=isLogged)
+    is_logged = logged_y
+    return render_template("index.html", nav=NAV, logged=is_logged)
 
 
-@app.route("/<path>")
-def pages():
-    try:
-        if not path.endswith(".html"):
-            path += ".html"
-        return render_template(path)
-    except TemplateNotFound:
-        return render_template("404.html"), 404
-    except:
-        return render_template("500.html"), 500
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html", nav=NAV)
+
+
+@app.route("/privacy-policy", methods=["GET"])
+def privacy():
+    return render_template("privacy-policy.html", nav=NAV)
+
+
+@app.route("/terms-and-conditions", methods=["GET"])
+def terms():
+    return render_template("terms-and-conditions.html", nav=NAV)
 
 
 @app.route("/static/report/Report.pdf", methods=["GET"])
 def download():
     return send_file("static/report/Report.pdf", as_attachment=True)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def server_not_working(e):
+    return render_template("500.html"), 500
 
 
 # create a callback function for flask_login
