@@ -59,7 +59,9 @@ header {
 
 .active {
     font-weight: bolder;
-    color: #ff6666;
+    color: #ff6666 !important;
+    text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black,
+        0.5px 0.5px black, -0.5px -0.5px black, 0.5px -0.5px black, -0.5px 0.5px black;
 }
 
 /* ------------------------------------------------------------ MAIN: ------------------------------------------------------------ */
