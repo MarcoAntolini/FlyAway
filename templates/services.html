@@ -12,11 +12,9 @@
 	<body>
 		<header>
 			<div class="nav">
-				<a href="index.html">Home</a>
-				<a href="about.html">About Us</a>
-				<a href="services.html">Services</a>
-				<a href="privacy-policy.html">Privacy & Cookies</a>
-				<a href="terms-and-conditions.html">Terms & Conditions</a>
+				{% for title, url in nav %}
+				<a class="{% if url == request.path %}active{% endif %}" href="{{url}}">{{title}}</a>
+				{% endfor %}
 			</div>
 		</header>
 		<main>
