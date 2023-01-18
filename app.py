@@ -53,36 +53,36 @@ error_msg = ""
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    return render_template("welcome.html", nav=NAV)
-    # html = requests.get("http://127.0.0.1:5000/")
-    # soup = BeautifulSoup(html.text, "html.parser")
-    # check_button = soup.find("input", id="switch")
-    # if check_button.has_class("register"):  # if the button is register
-    #     if request.method != "POST":
-    #         return render_template("welcome.html", nav=NAV)
-    #     username = request.form["username"]
-    #     password = request.form["password"]
-    #     for user in users:
-    #         if user.username == username:
-    #             error_msg = error_register
-    #             return render_template("welcome.html", nav=NAV, error=error_msg)
-    #     new_user = User(len(users), username, password)
-    #     users.append(new_user)
-    #     login_user(new_user, remember=True, duration=timedelta(days=30))
-    #     is_logged = logged_y
-    #     return render_template("index.html", nav=NAV, logged=is_logged)
-    # elif check_button.has_class("login"):  # if the button is login
-    #     if request.method != "POST":
-    #         return render_template("welcome.html", nav=NAV)
-    #     username = request.form["username"]
-    #     password = request.form["password"]
-    #     for user in users:
-    #         if user.username == username and user.password == password:
-    #             login_user(user, remember=True, duration=timedelta(days=7))
-    #             is_logged = logged_y
-    #             return render_template("index.html", nav=NAV, logged=is_logged)
-    #     error_msg = error_login
-    #     return render_template("welcome.html", nav=NAV, error=error_msg)
+    render_template("welcome.html", nav=NAV)
+    html = requests.get("http://127.0.0.1:5000/welcome")
+    soup = BeautifulSoup(html.text, "html.parser")
+    check_button = soup.find("input", id="switch")
+    if check_button.has_class("register"):  # if the button is register
+        if request.method != "POST":
+            return render_template("welcome.html", nav=NAV)
+        username = request.form["username"]
+        password = request.form["password"]
+        for user in users:
+            if user.username == username:
+                error_msg = error_register
+                return render_template("welcome.html", nav=NAV, error=error_msg)
+        new_user = User(len(users), username, password)
+        users.append(new_user)
+        login_user(new_user, remember=True, duration=timedelta(days=30))
+        is_logged = logged_y
+        return render_template("index.html", nav=NAV, logged=is_logged)
+    elif check_button.has_class("login"):  # if the button is login
+        if request.method != "POST":
+            return render_template("welcome.html", nav=NAV)
+        username = request.form["username"]
+        password = request.form["password"]
+        for user in users:
+            if user.username == username and user.password == password:
+                login_user(user, remember=True, duration=timedelta(days=7))
+                is_logged = logged_y
+                return render_template("index.html", nav=NAV, logged=is_logged)
+        error_msg = error_login
+        return render_template("welcome.html", nav=NAV, error=error_msg)
 
 
 @app.route("/logout", methods=["GET"])
