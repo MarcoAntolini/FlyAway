@@ -6,20 +6,20 @@ git clone <https://github.com/MarcoAntolini/Fly-Away>
 cd Fly-Away
 
 # Virtualenv modules installation (Unix based systems)
-virtualenv env
-source env/bin/activate
+virtualenv venv
+source venv/bin/activate
 
 # Virtualenv modules installation (Windows based systems)
-# virtualenv env
-# .\env\Scripts\activate
+# virtualenv venv
+# .\venv\Scripts\Activate.ps1
 
 # Install requirements
 pip install -r requirements.txt
 
 # Set the FLASK_APP environment variable
-(Unix/Mac) export FLASK_APP=run.py
-(Windows) set FLASK_APP=run.py
-(Powershell) $env:FLASK_APP = ".\run.py"
+(Unix/Mac) export FLASK_APP=app.py
+(Windows) set FLASK_APP=app.py
+(Powershell) $env:FLASK_APP = ".\app.py"
 
 # Set up the DEBUG environment
 # (Unix/Mac) export FLASK_ENV=development
