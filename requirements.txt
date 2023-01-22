@@ -1,6 +1,5 @@
 flask
 flask_login
-jinja2
 bs4
 datetime
-requests
+bcrypt
