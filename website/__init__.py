@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from datetime import timedelta
 from os import path
 
 
@@ -26,6 +27,9 @@ def create_app():
     
     login_manager = LoginManager()
     login_manager.login_view = "auth.welcome"
+    login_manager.refresh_view = "auth.welcome"
+    login_manager.remember_cookie_duration = timedelta(minutes=30)
+    login_manager.session_protection = "strong"
     login_manager.init_app(app)
     
     @login_manager.user_loader

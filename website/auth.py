@@ -26,7 +26,7 @@ def welcome():
                 new_user = User(username=username, password=generate_password_hash(password, method="sha256"))
                 db.session.add(new_user)
                 db.session.commit()
-                login_user(new_user)
+                login_user(new_user, remember=True)
                 logged_class = logged_class_yes
                 return render_template("index.html", nav=NAV, logged=logged_class)
         elif submit_type == "login":
@@ -35,7 +35,7 @@ def welcome():
             user = User.query.filter_by(username=username).first()
             if (user):
                 if check_password_hash(user.password, password):
-                    login_user(user)
+                    login_user(user, remember=True)
                     logged_class = logged_class_yes
                     return render_template("index.html", nav=NAV, logged=logged_class)
                 else:

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, send_file, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .util import *
 
 
@@ -15,6 +15,10 @@ def services():
 @views.route("/", methods=["GET"])
 @views.route("/index", methods=["GET"])
 def index():
+    if current_user.is_authenticated:
+        logged_class = logged_class_yes
+    else:
+        logged_class = logged_class_no
     return render_template("index.html", nav=NAV, logged=logged_class)
 
 
