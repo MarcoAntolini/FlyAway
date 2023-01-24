@@ -36,13 +36,3 @@ def terms():
 @views.route("/static/report/Report.pdf", methods=["GET"])
 def download():
     return send_file("static/report/Report.pdf", as_attachment=True)
-
-
-@views.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
-
-
-@views.errorhandler(500)
-def server_not_working(e):
-    return render_template("500.html"), 500
