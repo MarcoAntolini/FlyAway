@@ -31,14 +31,14 @@ function auth_switch() {
 function logged_check() {
     let user_button = document.getElementById("user");
     if (!user_button) return;
-    user_button.addEventListener("DOMAttrModified", function (event) {
-        if (event.attrName !== "class") return;
-        if (user_button.classList.contains("logged")) {
-            user_button.innerText = "Logout";
-            user_button.setAttribute("href", "/logout");
-        } else {
-            user_button.innerText = "Login/Register";
-            user_button.setAttribute("href", "/welcome");
-        }
-    });
+    // user_button.addEventListener("DOMAttrModified", function (event) {
+    //     if (event.attrName !== "class") return;
+    if (user_button.classList.contains("logged")) {
+        user_button.innerText = "Logout";
+        user_button.setAttribute("href", "/logout");
+    } else {
+        user_button.innerText = "Login/Register";
+        user_button.setAttribute("href", "/welcome");
+    }
+    // });
 }

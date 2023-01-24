@@ -14,10 +14,15 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     
     db.init_app(app)
-    if not path.exists('website/' + DB_NAME):
+    from .models import User
+    if not path.exists("website/" + DB_NAME):
         with app.app_context():
             db.create_all()
-    from .models import User
+            
+    from .views import views
+    from .auth import auth
+    app.register_blueprint(views, url_prefix="/")
+    app.register_blueprint(auth, url_prefix="/")
     
     login_manager = LoginManager()
     login_manager.login_view = "auth.welcome"
@@ -26,10 +31,5 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-    
-    from .views import views
-    from .auth import auth
-    app.register_blueprint(views, url_prefix="/")
-    app.register_blueprint(auth, url_prefix="/")
     
     return app
