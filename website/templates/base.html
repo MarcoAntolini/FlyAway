@@ -2,14 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Welcome | Fly Away</title>
+		<title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" href="/static/css/style.css" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica" />
 		<link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
 		<meta name=" viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<script src="/static/js/script.js"></script>
 	</head>
-
 	<body>
 		<header>
 			<div class="nav">
@@ -18,20 +17,7 @@
 				{% endfor %}
 			</div>
 		</header>
-		<main>
-			<h1 class="top-log title sub-title">Login to access our website</h1>
-			<div class="auth p">
-				<form method="post" name="form">
-					<input type="text" name="username" id="username" placeholder="username" required autocomplete autofocus />
-					<input type="password" name="password" id="password" placeholder="password" required autocomplete />
-					<input type="submit" name="submit" value="Register" id="submit" /><br />
-					{% if error %}
-					<div class="error">{{error}}</div>
-					{% endif %}
-					<input type="button" name="class" value="Already registered?" id="switch" class="register" /><br />
-				</form>
-			</div>
-		</main>
+		<main>{% block content %}{% endblock %}</main>
 		<footer>
 			<div>
 				<p>Contact us at:</p>
