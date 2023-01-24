@@ -1,4 +1,4 @@
-# How to run the app
+# Instructions for running the application
 
 ```bash
 # Clone the sources
