@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, send_file, url_for
+from flask import Blueprint, render_template, request, send_file
 from flask_login import login_required, current_user
+from jinja2 import TemplateNotFound
 from .util import *
 
 
@@ -22,19 +23,16 @@ def index():
     return render_template("index.html", nav=NAV, logged=logged_class)
 
 
-@views.route("/about", methods=["GET"])
-def about():
-    return render_template("about.html", nav=NAV)
-
-
-@views.route("/privacy-policy", methods=["GET"])
-def privacy():
-    return render_template("privacy-policy.html", nav=NAV)
-
-
-@views.route("/terms-and-conditions", methods=["GET"])
-def terms():
-    return render_template("terms-and-conditions.html", nav=NAV)
+@views.route("<template>")
+def load_template(template):
+    try:
+        if not template.endswith(".html"):
+            template += ".html"
+        return render_template(template, nav=NAV)
+    except TemplateNotFound:
+        return render_template("404.html"), 404
+    except:
+        return render_template("500.html"), 500
 
 
 @views.route("/static/report/Report.pdf", methods=["GET"])
