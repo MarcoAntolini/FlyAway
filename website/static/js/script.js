@@ -27,7 +27,6 @@ function auth_switch() {
     });
 }
 
-
 function logged_check() {
     let user_button = document.getElementById("user");
     if (!user_button) return;
