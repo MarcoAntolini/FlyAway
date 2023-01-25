@@ -52,3 +52,13 @@ def logout():
     logout_user()
     logged_class = logged_class_no
     return render_template("index.html", nav=NAV, logged=logged_class)
+
+
+@auth.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+@auth.errorhandler(500)
+def server_not_working(e):
+    return render_template("500.html"), 500
