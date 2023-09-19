@@ -14,3 +14,6 @@ error_msg_register = "Username already exists"
 error_msg_login_username = "Username doesn't exist"
 error_msg_login_password = "Invalid password"
 error_msg = ""
+
+index_url = "index.html"
+welcome_url = "welcome.html"

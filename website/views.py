@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, send_file
 from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
-from .util import *
+from .consts import NAV, logged_class_yes, logged_class_no, index_url
 
 
 views = Blueprint("views", __name__)
@@ -20,7 +20,7 @@ def index():
         logged_class = logged_class_yes
     else:
         logged_class = logged_class_no
-    return render_template("index.html", nav=NAV, logged=logged_class)
+    return render_template(index_url, nav=NAV, logged=logged_class)
 
 
 @views.route("<template>")
@@ -31,7 +31,7 @@ def load_template(template):
         return render_template(template, nav=NAV)
     except TemplateNotFound:
         return render_template("404.html"), 404
-    except:
+    except Exception:
         return render_template("500.html"), 500
 
 
